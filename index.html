@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ArtsyHub</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type ="text/javascript">
+    (function($){
+      $(document).ready(function(){
+
+        api_key = 'qup7qb9q3l9j9cqzrsw0d0gm';
+
+        $('button').click(function(){
+          tag = $("[id='tag']").val();
+          $.ajax({
+            url: 'https://openapi.etsy.com/v2/listings/active.js?tags=' + tag + '&api_key=' + api_key,
+            dataType: 'jsonp',
+            success: function(data){
+              if(data.ok && data.count > 0)
+              {
+                $.each(data.results, function(i, item){
+                  $.ajax({
+                    url: 'https://openapi.etsy.com/v2/shops/listing/' + item.listing_id + '.js?api_key=' + api_key,
+                    dataType: 'jsonp',
+                    success: function(data){
+                      if(data.ok && data.count > 0)
+                        $.each(data.results, function(j, item){
+                          if(item && item.shop_name)
+                            $('ul').append("<li>https://www.etsy.com/shop/"+item.shop_name+"</li>");
+                    })
+                  }
+                })
+              });
+            }
+          }
+        })
+      });
+    });
+    })(jQuery);
+    </script>
+  </head>
+  <body onload>
+    <h1>ArtsyHub</h1>
+    <div class = "container">
+      <input id = "tag"></input>
+      <button id="button">Enter your favorite artist</button>
+      <h2></h2>
+      <ul></ul>
+    </div>
+  </body>
+</html>
