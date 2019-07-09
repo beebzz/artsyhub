@@ -8,9 +8,12 @@
     (function($){
       $(document).ready(function(){
 
-        api_key = 'OMITTED';
-
+        api_key = 'qup7qb9q3l9j9cqzrsw0d0gm';
         $('button').click(function(){
+          $('ul').empty();
+          $('h4').empty();
+          $('input').empty();
+          let shops = [];
           tag = $("[id='tag']").val();
           $.ajax({
             url: 'https://openapi.etsy.com/v2/listings/active.js?tags=' + tag + '&api_key=' + api_key,
@@ -18,19 +21,30 @@
             success: function(data){
               if(data.ok && data.count > 0)
               {
-                $.each(data.results, function(i, item){
+                let results = [data.results[0].listing_id, data.results[1].listing_id,
+                                 data.results[2].listing_id, data.results[3].listing_id,
+                                 data.results[4].listing_id, data.results[5].listing_id];
+                $.each(results, function(i, item){
                   $.ajax({
-                    url: 'https://openapi.etsy.com/v2/shops/listing/' + item.listing_id + '.js?api_key=' + api_key,
+                    url: 'https://openapi.etsy.com/v2/shops/listing/' + item + '.js?api_key=' + api_key,
                     dataType: 'jsonp',
                     success: function(data){
-                      if(data.ok && data.count > 0)
+                      if(data.ok && data.count > 0) {
                         $.each(data.results, function(j, item){
-                          if(item && item.shop_name)
-                            $('ul').append("<li>https://www.etsy.com/shop/"+item.shop_name+"</li>");
+                          if(item && item.shop_name){
+                            let shop = item.shop_name;
+                            if($.inArray(shop, shops) === -1)
+                            {
+                              shops.push(shop);
+                              $('ul').append("<li>https://www.etsy.com/shop/"+shop+"</li>");
+                            }
+                        }
                     })
+                  }
                   }
                 })
               });
+              $('.inner').prepend("<h4>Here's a list of Etsy sellers to look at!</h4>");
             }
           }
         })
@@ -41,11 +55,13 @@
   </head>
   <body onload>
     <h1>ArtsyHub</h1>
+    <h3>Type in your favorite artist to get a list of sellers on Etsy to buy their merch from!</h2>
     <div class = "container">
       <input id = "tag"></input>
       <button id="button">Enter your favorite artist</button>
-      <h2></h2>
-      <ul></ul>
+      <div class = "inner">
+        <ul></ul>
+      </div>
     </div>
   </body>
 </html>
