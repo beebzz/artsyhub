@@ -8,14 +8,13 @@
     (function($){
       $(document).ready(function(){
 
-        api_key = 'qup7qb9q3l9j9cqzrsw0d0gm';
         $('button').click(function(){
           $('ul').empty();
           $('h4').empty();
           $('input').empty();
           let shops = [];
           tag = $("[id='tag']").val();
-          $.ajax({
+          /*$.ajax({
             url: 'https://openapi.etsy.com/v2/listings/active.js?tags=' + tag + '&api_key=' + api_key,
             dataType: 'jsonp',
             success: function(data){
@@ -47,11 +46,11 @@
               $('.inner').prepend("<h4>Here's a list of Etsy sellers to look at!</h4>");
             }
           }
-        })
-      });
+        })*/
+      })
     });
     })(jQuery);
-    </script>
+  </script>
   </head>
   <body onload>
     <h1>ArtsyHub</h1>
