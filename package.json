@@ -4,9 +4,14 @@
   "description": "Web application for music fans to find Etsy sellers who sell merch for their favorite artist(s)",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "keywords": [],
   "author": "Bilal Boussayoud",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  }
 }
