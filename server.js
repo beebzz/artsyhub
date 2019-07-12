@@ -3,7 +3,7 @@ const path = require('path');
 const router = require('express').Router();
 const request = require('request');
 const app = express();
-const api_key = 'qup7qb9q3l9j9cqzrsw0d0gm'
+const api_key = process.env.API_KEY;
 
 let shopReq = function(id){
   let promise = new Promise((resolve, reject) => {
