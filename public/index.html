@@ -18,7 +18,6 @@
           $.ajax({
             url: 'http://localhost:5000/listingids?artistName=' + tag,
             dataType: 'json',
-            //In this context, data should be an array of store urls
             success: function(data) {
               for(let i = 0; i < data.length; i++)
               {
