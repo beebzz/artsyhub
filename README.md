@@ -6,5 +6,5 @@
 
 ## Improvements to make:
 - Host application on Heroku
-- Set API key as environmental variable
+- Set API key as environmental variable (done)
 - Make UI more aesthetically pleasing
