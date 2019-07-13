@@ -14,7 +14,7 @@
           const tag = $("[id='tag']").val();
           //Request to server
           $.ajax({
-            url: 'http://localhost:80/listingids?artistName=' + tag,
+            url: 'http://localhost:443/listingids?artistName=' + tag,
             dataType: 'json',
             success: function(data) {
               for(let i = 0; i < data.length; i++)
