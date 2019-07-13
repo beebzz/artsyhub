@@ -7,21 +7,19 @@
     <script type ="text/javascript">
     (function($){
       $(document).ready(function(){
-
         $('button').click(function(){
           $('ul').empty();
           $('h4').empty();
           $('input').empty();
-          let shops = [];
           const tag = $("[id='tag']").val();
           //Request to server
           $.ajax({
-            url: 'http://localhost:5000/listingids?artistName=' + tag,
+            url: 'http://localhost:5268/listingids?artistName=' + tag,
             dataType: 'json',
             success: function(data) {
               for(let i = 0; i < data.length; i++)
               {
-                $('ul').append('<li>'+data[i]+'</li>');
+                $('ul').append('<li>https://www.etsy.com/shop/'+data[i]+'</li>');
               }
           }
         });

@@ -3,11 +3,13 @@ const path = require('path');
 const router = require('express').Router();
 const request = require('request');
 const app = express();
-const api_key = process.env.API_KEY;
+const { apikey } = require('./config');
+const { myport } = require('./config');
+
 
 let shopReq = function(id){
   let promise = new Promise((resolve, reject) => {
-    const shopUrl = 'https://openapi.etsy.com/v2/shops/listing/' + id + '.js?api_key=' + api_key;
+    const shopUrl = 'https://openapi.etsy.com/v2/shops/listing/' + id + '.js?api_key=' + apikey;
     request(shopUrl, {jsonp: true}, (err, response, body) => {
       if(err){reject(err);}
       body = JSON.parse(body.slice(5, (body.length-2)));
@@ -24,11 +26,10 @@ router.get('/listingids', function(req, res) {
   let shopUrls = [];
   let results = [];
   const artistName = req.query.artistName.replace(/s/g, '%20');
-  const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artistName + '&api_key=' + api_key;
+  const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artistName + '&api_key=' + apikey;
   request(listingUrl, {jsonp: true}, (err, response, body) => {
     if(err){return console.log(err);}
     body = JSON.parse(body.slice(5, (body.length-2)));
-    console.log(body);
     if(body.results.length < 6)
     {
       for(let i = 0; i < body.results.length; i++)
@@ -53,4 +54,4 @@ app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
 
-app.listen(process.env.PORT, () => console.log('Listening on port 5000'));
+app.listen(myport);
