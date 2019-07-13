@@ -54,4 +54,4 @@ app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
 
-app.listen(myport);
+app.listen(process.env.PORT);
