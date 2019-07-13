@@ -4,7 +4,7 @@ const router = require('express').Router();
 const request = require('request');
 const app = express();
 const { apikey } = require('./config');
-const { myport } = require('./config');
+//const { myport } = require('./config');
 
 
 let shopReq = function(id){
