@@ -12,7 +12,6 @@
           $('h4').empty();
           $('input').empty();
           const tag = $("[id='tag']").val();
-          //const port = process.env.PORT;
           //Request to server
           $.ajax({
             url: 'http://localhost:80/listingids?artistName=' + tag,
