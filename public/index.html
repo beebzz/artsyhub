@@ -15,7 +15,7 @@
           //const port = process.env.PORT;
           //Request to server
           $.ajax({
-            url: 'http://artsyhub.herokuapp.com/listingids?artistName=' + tag,
+            url: '/listingids?artistName=' + tag,
             dataType: 'json',
             success: function(data) {
               for(let i = 0; i < data.length; i++)
