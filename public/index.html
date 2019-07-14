@@ -15,7 +15,7 @@
           //const port = process.env.PORT;
           //Request to server
           $.ajax({
-            url: '/listingids?artistName=' + tag,
+            url: 'http://localhost:80/listingids?artistName=' + tag,
             dataType: 'json',
             success: function(data) {
               for(let i = 0; i < data.length; i++)
