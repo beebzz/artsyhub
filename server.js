@@ -4,7 +4,7 @@ const router = require('express').Router();
 const request = require('request');
 const app = express();
 const port = process.env.PORT || 5000;
-const key = process.env.etsykey;
+const key = process.env.etsykey || process.argv[2];
 
 let shopReq = function(id){
   let promise = new Promise((resolve, reject) => {
