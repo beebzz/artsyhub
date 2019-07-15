@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title>ArtsyHub</title>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type ='text/javascript'>
+    <script type ="text/javascript">
     (function($){
       $(document).ready(function(){
+
         $('button').click(function(){
           $('ul').empty();
           $('h4').empty();
           $('input').empty();
+          let shops = [];
           const tag = $("[id='tag']").val();
           //Request to server
           $.ajax({
@@ -19,14 +21,14 @@
             success: function(data) {
               for(let i = 0; i < data.length; i++)
               {
-                $('ul').append('<li>https://www.etsy.com/shop/'+data[i]+'</li>');
+                $('ul').append('<li>'+data[i]+'</li>');
               }
           }
         });
       })
     });
-  });
-    </script>
+    })(jQuery);
+  </script>
   </head>
   <body onload>
     <h1>ArtsyHub</h1>

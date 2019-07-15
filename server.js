@@ -3,9 +3,8 @@ const path = require('path');
 const router = require('express').Router();
 const request = require('request');
 const app = express();
+const port = process.env.PORT || 5000;
 const { apikey } = require('./config');
-//const { myport } = require('./config');
-
 
 let shopReq = function(id){
   let promise = new Promise((resolve, reject) => {
@@ -54,4 +53,4 @@ app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
 
-app.listen(process.env.PORT);
+app.listen(port, () => console.log('Listening on port ' + port));
