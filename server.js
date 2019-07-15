@@ -8,7 +8,7 @@ const key = process.env.etsykey;
 
 let shopReq = function(id){
   let promise = new Promise((resolve, reject) => {
-    const shopUrl = 'https://openapi.etsy.com/v2/shops/listing/' + id + '.js?api_key=' + etsykey;
+    const shopUrl = 'https://openapi.etsy.com/v2/shops/listing/' + id + '.js?api_key=' + key;
     request(shopUrl, {jsonp: true}, (err, response, body) => {
       if(err){reject(err);}
       body = JSON.parse(body.slice(5, (body.length-2)));
@@ -25,7 +25,7 @@ router.get('/listingids', function(req, res) {
   let shopUrls = [];
   let results = [];
   const artistName = req.query.artistName.replace(/s/g, '%20');
-  const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artistName + '&api_key=' + etsykey;
+  const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artistName + '&api_key=' + key;
   request(listingUrl, {jsonp: true}, (err, response, body) => {
     if(err){return console.log(err);}
     body = JSON.parse(body.slice(5, (body.length-2)));
