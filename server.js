@@ -4,7 +4,7 @@ const router = require('express').Router();
 const request = require('request');
 const app = express();
 const port = process.env.PORT || 5000;
-const { apikey } = require('./config');
+const apikey = 'qup7qb9q3l9j9cqzrsw0d0gm';
 
 let shopReq = function(id){
   let promise = new Promise((resolve, reject) => {
