@@ -5,6 +5,6 @@
 - Developed using Express.js, JQuery and Etsy API
 
 ## Improvements to make:
-- Host application on Heroku
-- Set API key as environmental variable
+- Host application on Heroku (done)
+- Set API key as environmental variable (done)
 - Make UI more aesthetically pleasing
