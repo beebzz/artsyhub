@@ -29,18 +29,15 @@ router.get('/listingids', function(req, res) {
   request(listingUrl, {jsonp: true}, (err, response, body) => {
     if(err){return console.log(err);}
     body = JSON.parse(body.slice(5, (body.length-2)));
-    if(body.results.length < 6)
-    {
-      for(let i = 0; i < body.results.length; i++)
-      {
+    if(body.results.length < 6){
+      for(let i = 0; i < body.results.length; i++){
         results.push(body.results[i].listing_id);
       }
     }
     else {
       results.push(body.results[0].listing_id, body.results[1].listing_id, body.results[2].listing_id, body.results[3].listing_id, body.results[4].listing_id, body.results[5].listing_id);
     }
-    for(let i = 0; i < results.length; i++)
-    {
+    for(let i = 0; i < results.length; i++){
       shopUrls.push(shopReq(results[i]));
     }
     Promise.all(shopUrls).then(shopUrls => res.json(shopUrls.map(item => item[0].shop_name)));

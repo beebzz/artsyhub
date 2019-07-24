@@ -19,10 +19,10 @@
             url: '/listingids?artistName=' + tag,
             dataType: 'json',
             success: function(data) {
-              for(let item of data)
-              {
-                if(!shops.includes(item))
-                {
+              if(data.length == 0)
+                $('ul').append('Sorry, we were unable to find any sellers related to that artist!');
+              for(let item of data){
+                if(!shops.includes(item)){
                   $('ul').append('<li>https://www.etsy.com/shop/'+item+'</li>');
                   shops.push(item);
                 }
