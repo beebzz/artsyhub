@@ -19,9 +19,13 @@
             url: '/listingids?artistName=' + tag,
             dataType: 'json',
             success: function(data) {
-              for(let i = 0; i < data.length; i++)
+              for(let item of data)
               {
-                $('ul').append('<li>https://www.etsy.com/shop/'+data[i]+'</li>');
+                if(!shops.includes(item))
+                {
+                  $('ul').append('<li>https://www.etsy.com/shop/'+item+'</li>');
+                  shops.push(item);
+                }
               }
           }
         });
