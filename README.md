@@ -5,7 +5,7 @@
 - Navigate into main directory
 - Run 
   >node server.js ETSY_API_KEY
-- Open [localhost:5000](localhost:5000)
+- Open [localhost:5000](http://localhost:5000)
 
 ## Uses the Following:
 - Express.js
