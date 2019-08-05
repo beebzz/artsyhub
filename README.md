@@ -2,8 +2,9 @@
 - Web application designed to help music fans find sellers on Etsy who make merch related to their favorite artist(s)
 
 ## How to Run Locally (clone Artsyhub beforehand):
-- node server.js [ADD ETSY API KEY]
-- open localhost:5000
+- Navigate into main directory
+- Run node server.js [ADD ETSY API KEY]
+- Open localhost:5000
 
 ## Uses the Following:
 - Express.js
