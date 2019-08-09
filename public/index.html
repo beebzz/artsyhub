@@ -3,18 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>ArtsyHub</title>
+    <!--Setup for JQuery-->
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="client.js"></script>
+
+    <!--Setup for CSS features-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body onload>
     <h1>ArtsyHub</h1>
-    <h3>Type in your favorite artist to get a list of sellers on Etsy to buy their merch from!</h2>
+    <h3>Type in your favorite musician's name!</h2>
     <div class = "container">
+      <div class = "box">
       <input id = "tag"></input>
-      <button id="button">Enter your favorite artist</button>
+      <a id ="button" class="waves-effect waves-light btn-large">Enter your favorite artist</a>
       <div class = "inner">
         <ul></ul>
       </div>
+    </div>
     </div>
   </body>
 </html>
