@@ -1,6 +1,5 @@
 (function($){
   $(document).ready(function(){
-
     $('#button').click(function(){
       $('ul').empty();
       $('h4').empty();
@@ -18,7 +17,7 @@
             $('.inner').prepend('<h4>Here\'s a list of sellers on Etsy to buy some of their merch from!</h4>');
           for(let item of data){
             if(!shops.includes(item)){
-              $('ul').append('<li>https://www.etsy.com/shop/'+item+'</li>');
+              $('ul').append('<li><a href ="https://www.etsy.com/shop/'+item+'">https://www.etsy.com/shop/'+item+'</a></li>');
               shops.push(item);
             }
           }

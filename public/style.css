@@ -1,3 +1,6 @@
+body{
+  background-color: #ff8f00;
+}
 .container {
   text-align: center;
   align-self: center;
@@ -6,10 +9,18 @@
 .box{
   display: inline-block;
 }
-
-h1{
-  text-align: center;
+#button{
+  background-color: rgba(207, 216, 220, 0.5);
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
-h3{
+h1, h3, h4, input{
   text-align: center;
+  font-family: 'Shadows Into Light';
+  color:#eceff1;
+}
+li{
+  font-family: 'Shadows Into Light';
+  font-size: 22px;
 }
