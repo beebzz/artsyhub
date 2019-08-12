@@ -12,9 +12,9 @@
         dataType: 'json',
         success: function(data) {
           if(data.length == 0)
-            $('.inner').prepend('Sorry, we were unable to find any sellers related to that artist!');
+            $('ul').append('<h4>Sorry, we were unable to find any sellers related to '+tag+'!</h4>');
           else
-            $('.inner').prepend('<h4>Here\'s a list of sellers on Etsy to buy some of their merch from!</h4>');
+            $('.inner').prepend('<h4>Here\'s a list of sellers on Etsy to buy some '+tag+' merch from!</h4>');
           for(let item of data){
             if(!shops.includes(item)){
               $('ul').append('<li><a href ="https://www.etsy.com/shop/'+item+'">https://www.etsy.com/shop/'+item+'</a></li>');
