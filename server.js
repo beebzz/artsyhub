@@ -35,9 +35,7 @@ router.get('/listingids', async function(req, res) {
     if(err){return console.log(err);}
     body = JSON.parse(body.slice(5, (body.length-2)));
     if(body.results.length < 6){
-      for(let i = 0; i < body.results.length; i++){
-        results.push(body.results[i].listing_id);
-      }
+      for(let i = 0; i < body.results.length; i++){results.push(body.results[i].listing_id);}
     }
     else {
       results.push(body.results[0].listing_id, body.results[1].listing_id, body.results[2].listing_id, body.results[3].listing_id, body.results[4].listing_id, body.results[5].listing_id);
@@ -46,9 +44,8 @@ router.get('/listingids', async function(req, res) {
       let result = await reqShop(results[i]);
       shopUrls.push(result);
     }
-    let shopset = new Set(shopUrls);
-    let shops = [...shopset];
-    res.json(shops.map(item => item[0].shop_name));
+    let shopset = new Set(shopUrls.map(item => item[0].shop_name)), shops = [...shopset];
+    res.json(shops);
   })
 });
 
