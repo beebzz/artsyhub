@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const key = process.env.etsykey || process.env.etsyapikey;
 
-let shopReq = function(id){
+let reqShop = function(id){
   let promise = new Promise((resolve, reject) => {
     const shopUrl = 'https://openapi.etsy.com/v2/shops/listing/' + id + '.js?api_key=' + key;
     request(shopUrl, {jsonp: true}, (err, response, body) => {
@@ -18,15 +18,20 @@ let shopReq = function(id){
   return promise;
 };
 
+app.use('/', router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', function(req, res) {
+  res.sendFile('index.html');
+});
+
 //Get listing id's route
-router.get('/listingids', function(req, res) {
+router.get('/listingids', async function(req, res) {
   let shopUrls = [];
   let results = [];
   const artistName = req.query.artistName.replace(/s/g, '%20');
   const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artistName + '&api_key=' + key;
-  request(listingUrl, {jsonp: true}, (err, response, body) => {
+  request(listingUrl, {jsonp: true}, async (err, response, body) => {
     if(err){return console.log(err);}
     body = JSON.parse(body.slice(5, (body.length-2)));
     if(body.results.length < 6){
@@ -38,16 +43,11 @@ router.get('/listingids', function(req, res) {
       results.push(body.results[0].listing_id, body.results[1].listing_id, body.results[2].listing_id, body.results[3].listing_id, body.results[4].listing_id, body.results[5].listing_id);
     }
     for(let i = 0; i < results.length; i++){
-      shopUrls.push(shopReq(results[i]));
+      let result = await reqShop(results[i]);
+      shopUrls.push(result);
     }
-    Promise.all(shopUrls).then(shopUrls => res.json(shopUrls.map(item => item[0].shop_name)));
+    res.json(shopUrls.map(item => item[0].shop_name));
   })
-});
-
-app.use('/', router);
-
-app.get('/', function(req, res) {
-  res.sendFile('index.html');
 });
 
 app.listen(port, () => console.log('Listening on port ' + port));
