@@ -46,7 +46,9 @@ router.get('/listingids', async function(req, res) {
       let result = await reqShop(results[i]);
       shopUrls.push(result);
     }
-    res.json(shopUrls.map(item => item[0].shop_name));
+    let shopset = new Set(shopUrls);
+    let shops = [...shopset];
+    res.json(shops.map(item => item[0].shop_name));
   })
 });
 
