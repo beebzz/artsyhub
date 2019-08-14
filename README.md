@@ -1,4 +1,4 @@
-# artsyhub
+# ArtsyHub
 - Web application designed to help music fans find sellers on Etsy who make merch related to their favorite artist(s)
 
 ## How to Run Locally (clone Artsyhub beforehand):
