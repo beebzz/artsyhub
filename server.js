@@ -12,7 +12,19 @@ let reqShop = function(id){
     request(shopUrl, {jsonp: true}, (err, response, body) => {
       if(err){reject(err);}
       body = JSON.parse(body.slice(5, (body.length-2)));
-      resolve(body.results);
+      resolve(body.results[0].shop_name);
+    });
+  })
+  return promise;
+};
+
+let reqImage = function(id){
+  let promise = new Promise((resolve, reject) => {
+  const imageUrl = 'https://openapi.etsy.com/v2/listings/'+id+'/images.js?api_key='+key;
+    request(imageUrl, {jsonp: true}, (err, response, body) => {
+      if(err){reject(err);}
+      body = JSON.parse(body.slice(5, (body.length-2)));
+      resolve(body.results[0].url_170x135);
     });
   })
   return promise;
@@ -27,7 +39,7 @@ app.get('/', function(req, res) {
 
 //Get listing id's route
 router.get('/listingids', async function(req, res) {
-  let shopUrls = [];
+  let shops = new Map();
   let results = [];
   const artistName = req.query.artistName.replace(/s/g, '%20');
   const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artistName + '&api_key=' + key;
@@ -41,11 +53,10 @@ router.get('/listingids', async function(req, res) {
       results.push(body.results[0].listing_id, body.results[1].listing_id, body.results[2].listing_id, body.results[3].listing_id, body.results[4].listing_id, body.results[5].listing_id);
     }
     for(let i = 0; i < results.length; i++){
-      let result = await reqShop(results[i]);
-      shopUrls.push(result);
+      let shopResult = await reqShop(results[i]), imgResult = await reqImage(results[i]);
+      shops.set(shopResult, imgResult);
     }
-    let shopset = new Set(shopUrls.map(item => item[0].shop_name)), shops = [...shopset];
-    res.json(shops);
+    res.json([...shops]);
   })
 });
 
