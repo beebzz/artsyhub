@@ -1,12 +1,12 @@
 # ArtsyHub
 - Web application designed to help music fans find sellers on Etsy who make merch related to their favorite artist(s)
 
-## How to Run Locally:
-  ### Prerequisites:
-  - Clone Artsyhub
-  - Set Etsy API key as environmental variable on machine, for example (bash profile syntax):
-      >export myetsykey=YOUR_API_KEY
-      
+## Prerequisites for running locally:
+- Clone Artsyhub
+- Set Etsy API key as environmental variable on machine, for example (bash profile syntax):
+    >export myetsykey=YOUR_API_KEY
+
+## How to Run Locally (see Prerequisites first):    
 - Navigate into main directory
 - Run:
   >node server.js
