@@ -4,12 +4,12 @@
 ## How to Run Locally:
   ## Prerequisites:
   - Clone Artsyhub
-  - Set Etsy API key as environmental variable on machine, for example (bash profile syntax); 
+  - Set Etsy API key as environmental variable on machine, for example (bash profile syntax):
       >export myetsykey=YOUR_API_KEY
 - Navigate into main directory
-- Run 
+- Run:
   >node server.js
-- Open [localhost:5000](http://localhost:5000)
+- Open [localhost:5000](http://localhost:5000) on browser
 
 ## Uses the Following:
 - Express.js
