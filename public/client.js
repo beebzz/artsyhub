@@ -5,9 +5,9 @@
       $('h4').empty();
       $('input').empty();
       const tag = $("[id='tag']").val();
-      //Request to server
+      //Request to back-end
       $.ajax({
-        url: '/listingids?artistName=' + tag,
+        url: '/shops?artistName=' + tag,
         dataType: 'json',
         success: function(data) {
           if(data.length == 0)
