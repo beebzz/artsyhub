@@ -60,9 +60,9 @@ app.get('/', function(req, res) {
 router.get('/shops', async function(req, res) {
   let shops = new Map();
   const artistName = req.query.artistName.replace(/s/g, '%20');
-  let results = await getListingIds(artistName);
-  for(let i = 0; i < results.length; i++){
-    let shopResult = await getShop(results[i]), imgResult = await getImage(results[i]);
+  let listingIds = await getListingIds(artistName);
+  for(let id of listingIds){
+    let shopResult = await getShop(id), imgResult = await getImage(id);
     shops.set(shopResult, imgResult);
   }
   res.json([...shops]);
