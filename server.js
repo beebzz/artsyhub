@@ -6,18 +6,22 @@ const app = express();
 const port = process.env.PORT || 5000;
 const key = process.env.etsykey || process.env.etsyapikey;
 
-let getListingIds = function(artist){
-  let promise = new Promise((resolve, reject) =>{
-    const listingUrl = 'https://openapi.etsy.com/v2/listings/active.js?tags=' + artist + '&api_key=' + key;
+/**
+ * Query API for no more than 6 listings matching the artist/musician;
+ * approach has room for reimagination (i.e. a load more button, pagination)
+ */
+const getListingIds = function(artist){
+  const promise = new Promise((resolve, reject) =>{
+    const listingUrl = `https://openapi.etsy.com/v2/listings/active.js?tags=${artist}&api_key=${key}`;
     request(listingUrl, {jsonp: true}, (err, response, body) => {
       if(err){reject(err);}
       body = JSON.parse(body.slice(5, (body.length-2)));
       let results = [];
       if(body.results.length < 6){
-        for(let i = 0; i < body.results.length; i++){results.push(body.results[i].listing_id);}
+        for(const result of body.results){results.push(result.listing_id);}
       }
       else {
-        results.push(body.results[0].listing_id, body.results[1].listing_id, body.results[2].listing_id, body.results[3].listing_id, body.results[4].listing_id, body.results[5].listing_id);
+        for(let i = 0; i < 6; i++){results.push(body.results[i].listing_id);}
       }
       resolve(results);
     });
@@ -25,9 +29,12 @@ let getListingIds = function(artist){
   return promise;
 };
 
-let getShop = function(id){
-  let promise = new Promise((resolve, reject) => {
-    const shopUrl = 'https://openapi.etsy.com/v2/shops/listing/' + id + '.js?api_key=' + key;
+/**
+ * Obtain shops by the listing 
+ */
+const getShop = function(id){
+  const promise = new Promise((resolve, reject) => {
+    const shopUrl = `https://openapi.etsy.com/v2/shops/listing/${id}.js?api_key=${key}`;
     request(shopUrl, {jsonp: true}, (err, response, body) => {
       if(err){reject(err);}
       body = JSON.parse(body.slice(5, (body.length-2)));
@@ -37,9 +44,14 @@ let getShop = function(id){
   return promise;
 };
 
-let getImage = function(id){
-  let promise = new Promise((resolve, reject) => {
-  const imageUrl = 'https://openapi.etsy.com/v2/listings/'+id+'/images.js?api_key='+key;
+/**
+ * Get item photos by shop and return the first one.
+ * TODO: refactor to obtain images of listings found via
+ * getListingIds
+ */
+const getImage = function(id){
+  const promise = new Promise((resolve, reject) => {
+  const imageUrl = `https://openapi.etsy.com/v2/listings/${id}/images.js?api_key=${key}`;
     request(imageUrl, {jsonp: true}, (err, response, body) => {
       if(err){reject(err);}
       body = JSON.parse(body.slice(5, (body.length-2)));
@@ -56,16 +68,18 @@ app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
 
-//Get Shops Route
+/**
+ * Get shops route; existing approach has room for reimagination
+ */
 router.get('/shops', async function(req, res) {
   let shops = new Map();
-  const artistName = req.query.artistName.replace(/s/g, '%20');
-  let listingIds = await getListingIds(artistName);
+  const artistName = req.query.artistName.replace(/s/g,'%20');
+  const listingIds = await getListingIds(artistName);
   for(let id of listingIds){
-    let shopResult = await getShop(id), imgResult = await getImage(id);
+    const shopResult = await getShop(id), imgResult = await getImage(id);
     shops.set(shopResult, imgResult);
   }
   res.json([...shops]);
 });
 
-app.listen(port, () => console.log('Listening on port ' + port));
+app.listen(port, () => console.log(`Listening on port ${port}`));
