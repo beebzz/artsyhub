@@ -18,8 +18,8 @@
 - Etsy API
 
 ## Improvements/Optimizations to Make:
-- Host application on Heroku (done)
-- Set API key as environmental variable (done)
-- Make UI more aesthetically pleasing (done)
-- Add sample listing photos beneath shops (done)
-- Implement caching of shop results and searches
+- ~~Host application on Heroku~~
+- ~~Add sample listing photos beneath shops~~
+- Refactor client-side from jQuery to React
+- Initialize DB to store past search results
+- Make UI more aesthetically pleasing
